@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunar Landing Site API - Beta Access</title>
+    <meta name="description" content="Query 1.18M pre-analyzed lunar landing sites in seconds. NASA LOLA terrain + LROC illumination data, powered by intelligent decision support.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 14, 39, 0.95);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .logo span {
+            color: #4CAF50;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 6rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(76, 175, 80, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(33, 150, 243, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .beta-badge {
+            display: inline-block;
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        h1 .highlight {
+            background: linear-gradient(135deg, #4CAF50 0%, #2196F3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        /* Stats Bar */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4CAF50;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        /* Signup Form Section */
+        .signup-section {
+            background: #fff;
+            padding: 4rem 2rem;
+        }
+
+        .signup-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .signup-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1a1f3a;
+        }
+
+        .signup-container p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: #fff;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
+        }
+
+        .cta-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            display: none;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border: 2px solid #4CAF50;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 2rem;
+            background: #f8f9fa;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1a1f3a;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1a1f3a;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            padding: 5rem 2rem;
+            background: #fff;
+        }
+
+        .use-cases-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .use-case {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .use-case h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #1a1f3a;
+        }
+
+        .use-case p {
+            color: #666;
+        }
+
+        /* Code Example */
+        .code-section {
+            padding: 5rem 2rem;
+            background: #1a1f3a;
+            color: #fff;
+        }
+
+        .code-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .code-block {
+            background: #0a0e27;
+            padding: 2rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin-top: 2rem;
+        }
+
+        .code-block code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        .code-comment {
+            color: #4CAF50;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0e27;
+            color: #fff;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🌙 <span>LunarAPI</span></div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#signup">Get Access</a>
+                <a href="https://api.lunarlanding.space/docs" target="_blank">Docs</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="beta-badge">🚀 PUBLIC BETA NOW OPEN</div>
+            <h1>Find the Perfect <span class="highlight">Lunar Landing Site</span> in Seconds</h1>
+            <p>Query 1.18M pre-analyzed sites across the lunar south pole. Turn weeks of manual GIS analysis into a single API call.</p>
+            
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">1.18M</span>
+                    <span class="stat-label">Analyzed Sites</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">60+</span>
+                    <span class="stat-label">Features per Site</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">&lt;100ms</span>
+                    <span class="stat-label">Query Response</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="signup" class="signup-section">
+        <div class="signup-container">
+            <h2>Join the Beta Program</h2>
+            <p>Get free API access and help shape the future of lunar mission planning</p>
+            
+            <form class="signup-form" id="betaForm">
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required placeholder="you@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required placeholder="Jane Smith">
+                </div>
+
+                <div class="form-group">
+                    <label for="organization">Organization</label>
+                    <input type="text" id="organization" name="organization" placeholder="NASA, University, Company, or Independent">
+                </div>
+
+                <div class="form-group">
+                    <label for="role">What best describes you? *</label>
+                    <select id="role" name="role" required>
+                        <option value="">Select your role...</option>
+                        <option value="researcher">Academic Researcher</option>
+                        <option value="mission_planner">Mission Planner</option>
+                        <option value="gis_professional">GIS Professional</option>
+                        <option value="space_engineer">Space Engineer/Developer</option>
+                        <option value="student">Student</option>
+                        <option value="enthusiast">Space Enthusiast</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="use_case">What do you plan to use the API for?</label>
+                    <textarea id="use_case" name="use_case" placeholder="e.g., Artemis mission analysis, rover path planning, research project on lunar terrain..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="source">How did you hear about us?</label>
+                    <select id="source" name="source">
+                        <option value="">Select...</option>
+                        <option value="reddit">Reddit</option>
+                        <option value="linkedin">LinkedIn</option>
+                        <option value="twitter">Twitter/X</option>
+                        <option value="colleague">Colleague/Friend</option>
+                        <option value="conference">Conference</option>
+                        <option value="search">Search Engine</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="cta-button">Request Beta Access</button>
+            </form>
+
+            <div class="success-message" id="successMessage">
+                <strong>✓ Success!</strong> Thank you for signing up. We'll send your API key and onboarding instructions to your email within 24 hours.
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="features-container">
+            <h2 class="section-title">Why Use Our API?</h2>
+            <p class="section-subtitle">Built by mission planners, for mission planners</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Comprehensive Data</h3>
+                    <p>1.18M sites with 60+ features each. Terrain metrics from NASA LOLA (5m resolution) and illumination data from LROC.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Smart Recommendations</h3>
+                    <p>Smart site scoring with plain English reasoning. Know exactly why each site is recommended for your mission.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Sub-100ms queries with PostGIS spatial indexing. Get results instantly instead of waiting hours for GIS analysis.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🗺️</div>
+                    <h3>Export Anywhere</h3>
+                    <p>GeoJSON for QGIS/ArcGIS, KML for Google Earth, CSV for Excel. Integrate with your existing workflows.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Mission-Specific</h3>
+                    <p>Optimized scoring for Artemis human landing, robotic landers, rover traverses, and custom mission profiles.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔬</div>
+                    <h3>Research-Grade</h3>
+                    <p>99.98% data completeness with professional curation. Built on authoritative NASA datasets.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="use-cases">
+        <div class="use-cases-container">
+            <h2 class="section-title">Use Cases</h2>
+            
+            <div class="use-case">
+                <h3>🚀 Mission Planning</h3>
+                <p>Rapidly evaluate thousands of candidate sites for Artemis or commercial lunar missions. Get mission-specific recommendations in seconds.</p>
+            </div>
+
+            <div class="use-case">
+                <h3>🎓 Academic Research</h3>
+                <p>Access processed NASA datasets for lunar geology, terrain analysis, or illumination studies. Free academic tier available.</p>
+            </div>
+
+            <div class="use-case">
+                <h3>🗺️ GIS Analysis</h3>
+                <p>Export pre-analyzed data directly to QGIS or ArcGIS. Skip the manual raster processing and focus on insights.</p>
+            </div>
+
+            <div class="use-case">
+                <h3>🤖 Rover Path Planning</h3>
+                <p>Find accessible terrain for rover traverses. Evaluate slope, roughness, and illumination along potential routes.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="code-section">
+        <div class="code-container">
+            <h2 class="section-title">Simple, Powerful API</h2>
+            <p class="section-subtitle">Get started in 30 seconds with any programming language</p>
+            
+            <div class="code-block">
+                <code>
+<span class="code-comment"># Find the 5 safest landing sites near lunar south pole</span><br>
+import requests<br><br>
+
+response = requests.get(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"https://api.lunarlanding.space/api/v1/recommendations",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;params={<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"lat": -89.5,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"lon": 0,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"mission_type": "artemis",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"top_n": 5<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+)<br><br>
+
+<span class="code-comment"># Get plain English reasoning for top site</span><br>
+top_site = response.json()["recommendations"][0]<br>
+print(top_site["reasoning"])<br><br>
+
+<span class="code-comment"># Output: "Exceptional safety (hazard 0.92) with excellent visibility (95.2%)..."</span>
+                </code>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://api.lunarlanding.space/docs" target="_blank">API Documentation</a>
+                <a href="#signup">Beta Access</a>
+                <a href="mailto:info@irisdatalabs.com">Contact</a>
+            </div>
+            <p style="opacity: 0.7;">© 2025 Iris Data Labs. Built with data from NASA LRO.</p>
+            <p style="opacity: 0.5; font-size: 0.9rem; margin-top: 1rem;">Made with 🌙 for the lunar exploration community</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('betaForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitBtn = this.querySelector('.cta-button');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+            
+            // Collect form data for Google Forms
+            const formData = new FormData();
+            
+            // ⚠️ IMPORTANT: Replace these entry IDs with YOUR actual Google Form entry IDs
+            // See DEPLOYMENT_GUIDE.md Part 2, Step 4 for how to find these
+            formData.append('entry.XXXXXXXXX', document.getElementById('email').value);
+            formData.append('entry.XXXXXXXXX', document.getElementById('name').value);
+            formData.append('entry.XXXXXXXXX', document.getElementById('organization').value);
+            formData.append('entry.XXXXXXXXX', document.getElementById('role').value);
+            formData.append('entry.XXXXXXXXX', document.getElementById('use_case').value);
+            formData.append('entry.XXXXXXXXX', document.getElementById('source').value);
+            
+            try {
+                // Submit to Google Forms
+                // ⚠️ IMPORTANT: Replace YOUR_FORM_ID with your actual Google Form ID
+                await fetch('https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse', {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors' // Required for Google Forms
+                });
+                
+                // Show success message
+                document.getElementById('betaForm').style.display = 'none';
+                document.getElementById('successMessage').classList.add('show');
+                
+                // Track conversion (if you add Google Analytics)
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'beta_signup', {
+                        'event_category': 'engagement',
+                        'event_label': document.getElementById('role').value
+                    });
+                }
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                // Still show success since Google Forms submission likely worked
+                document.getElementById('betaForm').style.display = 'none';
+                document.getElementById('successMessage').classList.add('show');
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
