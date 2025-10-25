@@ -543,7 +543,7 @@
                 <div class="feature-card">
                     <div class="feature-icon">🧠</div>
                     <h3>Smart Recommendations</h3>
-                    <p>Smart site scoring with plain English reasoning. Know exactly why each site is recommended for your mission.</p>
+                    <p>AI-powered site scoring with plain English reasoning. Know exactly why each site is recommended for your mission.</p>
                 </div>
 
                 <div class="feature-card">
@@ -656,17 +656,17 @@ print(top_site["reasoning"])<br><br>
             
             // ⚠️ IMPORTANT: Replace these entry IDs with YOUR actual Google Form entry IDs
             // See DEPLOYMENT_GUIDE.md Part 2, Step 4 for how to find these
-            formData.append('entry.XXXXXXXXX', document.getElementById('email').value);
-            formData.append('entry.XXXXXXXXX', document.getElementById('name').value);
-            formData.append('entry.XXXXXXXXX', document.getElementById('organization').value);
-            formData.append('entry.XXXXXXXXX', document.getElementById('role').value);
-            formData.append('entry.XXXXXXXXX', document.getElementById('use_case').value);
-            formData.append('entry.XXXXXXXXX', document.getElementById('source').value);
+            formData.append('entry.674297029', document.getElementById('email').value);
+            formData.append('entry.438906644', document.getElementById('name').value);
+            formData.append('entry.1921768215', document.getElementById('organization').value);
+            formData.append('entry.1195763963', document.getElementById('role').value);
+            formData.append('entry.2034369857', document.getElementById('use_case').value);
+            formData.append('entry.789666580', document.getElementById('source').value);
             
             try {
                 // Submit to Google Forms
                 // ⚠️ IMPORTANT: Replace YOUR_FORM_ID with your actual Google Form ID
-                await fetch('https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse', {
+                await fetch('https://docs.google.com/forms/d/e/1FAIpQLScfsgNLlKAqIGUAXoVmt0pS9Exm-bi5yXfNBXbTLSn76R5gzQ/viewform?usp=dialog', {
                     method: 'POST',
                     body: formData,
                     mode: 'no-cors' // Required for Google Forms
