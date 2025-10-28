@@ -427,7 +427,7 @@
 <body>
     <header>
         <nav>
-            <div class="logo">ðŸŒ™ <span>LunarAPI</span></div>
+            <div class="logo">🌙 <span>LunarAPI</span></div>
             <div class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#signup">Get Access</a>
@@ -438,7 +438,7 @@
 
     <section class="hero">
         <div class="hero-content">
-            <div class="beta-badge">ðŸš€ PUBLIC BETA NOW OPEN</div>
+            <div class="beta-badge">🚀 PUBLIC BETA NOW OPEN</div>
             <h1>Find the Perfect <span class="highlight">Lunar Landing Site</span> in Seconds</h1>
             <p>Query 1.18M pre-analyzed sites across the lunar south pole. Turn weeks of manual GIS analysis into a single API call.</p>
             
@@ -541,19 +541,19 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">âš¡</div>
+                    <div class="feature-icon">⚡</div>
                     <h3>Lightning Fast</h3>
                     <p>Sub-100ms queries with PostGIS spatial indexing. Get results instantly instead of waiting hours for GIS analysis.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">ðŸ—ºï¸</div>
+                    <div class="feature-icon">🗺️</div>
                     <h3>Export Anywhere</h3>
                     <p>GeoJSON for QGIS/ArcGIS, KML for Google Earth, CSV for Excel. Integrate with your existing workflows.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">ðŸŽ¯</div>
+                    <div class="feature-icon">🎯</div>
                     <h3>Mission-Specific</h3>
                     <p>Optimized scoring for Artemis human landing, robotic landers, rover traverses, and custom mission profiles.</p>
                 </div>
@@ -572,7 +572,7 @@
             <h2 class="section-title">Use Cases</h2>
             
             <div class="use-case">
-                <h3>ðŸš€ Mission Planning</h3>
+                <h3>🚀 Mission Planning</h3>
                 <p>Rapidly evaluate thousands of candidate sites for Artemis or commercial lunar missions. Get mission-specific recommendations in seconds.</p>
             </div>
 
@@ -582,12 +582,12 @@
             </div>
 
             <div class="use-case">
-                <h3>ðŸ—ºï¸ GIS Analysis</h3>
+                <h3>🗺️ GIS Analysis</h3>
                 <p>Export pre-analyzed data directly to QGIS or ArcGIS. Skip the manual raster processing and focus on insights.</p>
             </div>
 
             <div class="use-case">
-                <h3>ðŸ¤– Rover Path Planning</h3>
+                <h3>🤖 Rover Path Planning</h3>
                 <p>Find accessible terrain for rover traverses. Evaluate slope, roughness, and illumination along potential routes.</p>
             </div>
         </div>
@@ -630,8 +630,8 @@ print(top_site["reasoning"])<br><br>
                 <a href="#signup">Beta Access</a>
                 <a href="mailto:info@irisdatalabs.com">Contact</a>
             </div>
-            <p style="opacity: 0.7;">Â© 2025 Iris Data Labs. Built with data from NASA LRO.</p>
-            <p style="opacity: 0.5; font-size: 0.9rem; margin-top: 1rem;">Made with ðŸŒ™ for the lunar exploration community</p>
+            <p style="opacity: 0.7;">© 2025 Iris Data Labs. Built with data from NASA LRO.</p>
+            <p style="opacity: 0.5; font-size: 0.9rem; margin-top: 1rem;">Made with 🌙 for the lunar exploration community</p>
         </div>
     </footer>
 
@@ -656,11 +656,20 @@ print(top_site["reasoning"])<br><br>
             formData.append('entry.2034369857', document.getElementById('use_case').value);
             formData.append('entry.789666580', document.getElementById('source').value);
             
+            // Convert FormData to URLSearchParams for proper encoding
+            const searchParams = new URLSearchParams();
+            for (const pair of formData.entries()) {
+                searchParams.append(pair[0], pair[1]);
+            }
+            
             try {
                 // Submit to Google Forms
                 await fetch('https://docs.google.com/forms/d/e/1FAIpQLScfsgNLlKAqIGUAXoVmt0pS9Exm-bi5yXfNBXbTLSn76R5gzQ/formResponse', {
                     method: 'POST',
-                    body: formData,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: searchParams.toString(),
                     mode: 'no-cors' // Required for Google Forms
                 });
                 
