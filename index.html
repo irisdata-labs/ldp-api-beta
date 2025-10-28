@@ -204,7 +204,6 @@
             border-radius: 8px;
             font-size: 1rem;
             transition: border-color 0.3s;
-            font-family: inherit;
         }
 
         input:focus, select:focus, textarea:focus {
@@ -230,14 +229,9 @@
             margin-top: 1rem;
         }
 
-        .cta-button:hover:not(:disabled) {
+        .cta-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
-        }
-
-        .cta-button:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
         }
 
         .success-message {
@@ -433,18 +427,18 @@
 <body>
     <header>
         <nav>
-            <div class="logo">🌙 <span>LunarAPI</span></div>
+            <div class="logo">ðŸŒ™ <span>LunarAPI</span></div>
             <div class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#signup">Get Access</a>
-                <a href="https://lunarlandingsiteapi.up.railway.app/docs" target="_blank">Docs</a>
+                <a href="http://localhost:8000/docs" target="_blank">Docs</a>
             </div>
         </nav>
     </header>
 
     <section class="hero">
         <div class="hero-content">
-            <div class="beta-badge">🚀 PUBLIC BETA NOW OPEN</div>
+            <div class="beta-badge">ðŸš€ PUBLIC BETA NOW OPEN</div>
             <h1>Find the Perfect <span class="highlight">Lunar Landing Site</span> in Seconds</h1>
             <p>Query 1.18M pre-analyzed sites across the lunar south pole. Turn weeks of manual GIS analysis into a single API call.</p>
             
@@ -523,7 +517,7 @@
             </form>
 
             <div class="success-message" id="successMessage">
-                <strong>✓ Success!</strong> Thank you for signing up. We'll send your API key and onboarding instructions to your email within 24 hours.
+                <strong>âœ“ Success!</strong> Thank you for signing up. We'll send your API key and onboarding instructions to your email within 24 hours.
             </div>
         </div>
     </section>
@@ -535,37 +529,37 @@
             
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">📊</div>
+                    <div class="feature-icon">ðŸ“Š</div>
                     <h3>Comprehensive Data</h3>
                     <p>1.18M sites with 60+ features each. Terrain metrics from NASA LOLA (5m resolution) and illumination data from LROC.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">🧠</div>
+                    <div class="feature-icon">ðŸ§ </div>
                     <h3>Smart Recommendations</h3>
                     <p>AI-powered site scoring with plain English reasoning. Know exactly why each site is recommended for your mission.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
+                    <div class="feature-icon">âš¡</div>
                     <h3>Lightning Fast</h3>
                     <p>Sub-100ms queries with PostGIS spatial indexing. Get results instantly instead of waiting hours for GIS analysis.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">🗺️</div>
+                    <div class="feature-icon">ðŸ—ºï¸</div>
                     <h3>Export Anywhere</h3>
                     <p>GeoJSON for QGIS/ArcGIS, KML for Google Earth, CSV for Excel. Integrate with your existing workflows.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
+                    <div class="feature-icon">ðŸŽ¯</div>
                     <h3>Mission-Specific</h3>
                     <p>Optimized scoring for Artemis human landing, robotic landers, rover traverses, and custom mission profiles.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">🔬</div>
+                    <div class="feature-icon">ðŸ”¬</div>
                     <h3>Research-Grade</h3>
                     <p>99.98% data completeness with professional curation. Built on authoritative NASA datasets.</p>
                 </div>
@@ -578,22 +572,22 @@
             <h2 class="section-title">Use Cases</h2>
             
             <div class="use-case">
-                <h3>🚀 Mission Planning</h3>
+                <h3>ðŸš€ Mission Planning</h3>
                 <p>Rapidly evaluate thousands of candidate sites for Artemis or commercial lunar missions. Get mission-specific recommendations in seconds.</p>
             </div>
 
             <div class="use-case">
-                <h3>🎓 Academic Research</h3>
+                <h3>ðŸŽ“ Academic Research</h3>
                 <p>Access processed NASA datasets for lunar geology, terrain analysis, or illumination studies. Free academic tier available.</p>
             </div>
 
             <div class="use-case">
-                <h3>🗺️ GIS Analysis</h3>
+                <h3>ðŸ—ºï¸ GIS Analysis</h3>
                 <p>Export pre-analyzed data directly to QGIS or ArcGIS. Skip the manual raster processing and focus on insights.</p>
             </div>
 
             <div class="use-case">
-                <h3>🤖 Rover Path Planning</h3>
+                <h3>ðŸ¤– Rover Path Planning</h3>
                 <p>Find accessible terrain for rover traverses. Evaluate slope, roughness, and illumination along potential routes.</p>
             </div>
         </div>
@@ -610,10 +604,10 @@
 import requests<br><br>
 
 response = requests.get(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;"https://lunarlandingsiteapi.up.railway.app/docs#/default/get_recommendations_api_v1_recommendations_get",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"https://api.lunarlanding.space/api/v1/recommendations",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;params={<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"lat": -89.5,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"lon": 45,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"lon": 0,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"mission_type": "artemis",<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"top_n": 5<br>
 &nbsp;&nbsp;&nbsp;&nbsp;}<br>
@@ -632,12 +626,12 @@ print(top_site["reasoning"])<br><br>
     <footer>
         <div class="footer-content">
             <div class="footer-links">
-                <a href="https://lunarlandingsiteapi.up.railway.app/docs" target="_blank">API Documentation</a>
+                <a href="http://localhost:8000/docs" target="_blank">API Documentation</a>
                 <a href="#signup">Beta Access</a>
                 <a href="mailto:info@irisdatalabs.com">Contact</a>
             </div>
-            <p style="opacity: 0.7;">© 2025 Iris Data Labs. Built with data from NASA LRO.</p>
-            <p style="opacity: 0.5; font-size: 0.9rem; margin-top: 1rem;">Made with 🌙 for the lunar exploration community</p>
+            <p style="opacity: 0.7;">Â© 2025 Iris Data Labs. Built with data from NASA LRO.</p>
+            <p style="opacity: 0.5; font-size: 0.9rem; margin-top: 1rem;">Made with ðŸŒ™ for the lunar exploration community</p>
         </div>
     </footer>
 
@@ -654,8 +648,7 @@ print(top_site["reasoning"])<br><br>
             // Collect form data for Google Forms
             const formData = new FormData();
             
-            // ⚠️ IMPORTANT: Replace these entry IDs with YOUR actual Google Form entry IDs
-            // See DEPLOYMENT_GUIDE.md Part 2, Step 4 for how to find these
+            // Map your form fields to Google Form entry IDs
             formData.append('entry.674297029', document.getElementById('email').value);
             formData.append('entry.438906644', document.getElementById('name').value);
             formData.append('entry.1921768215', document.getElementById('organization').value);
@@ -665,8 +658,7 @@ print(top_site["reasoning"])<br><br>
             
             try {
                 // Submit to Google Forms
-                // ⚠️ IMPORTANT: Replace YOUR_FORM_ID with your actual Google Form ID
-                await fetch('https://docs.google.com/forms/u/1/d/e/1FAIpQLScfsgNLlKAqIGUAXoVmt0pS9Exm-bi5yXfNBXbTLSn76R5gzQ/formResponse', {
+                await fetch('https://docs.google.com/forms/d/e/1FAIpQLScfsgNLlKAqIGUAXoVmt0pS9Exm-bi5yXfNBXbTLSn76R5gzQ/formResponse', {
                     method: 'POST',
                     body: formData,
                     mode: 'no-cors' // Required for Google Forms
@@ -676,13 +668,8 @@ print(top_site["reasoning"])<br><br>
                 document.getElementById('betaForm').style.display = 'none';
                 document.getElementById('successMessage').classList.add('show');
                 
-                // Track conversion (if you add Google Analytics)
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'beta_signup', {
-                        'event_category': 'engagement',
-                        'event_label': document.getElementById('role').value
-                    });
-                }
+                // Log for debugging
+                console.log('Beta signup submitted successfully');
                 
             } catch (error) {
                 console.error('Submission error:', error);
