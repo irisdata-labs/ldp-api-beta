@@ -636,60 +636,118 @@ print(top_site["reasoning"])<br><br>
     </footer>
 
     <script>
-        document.getElementById('betaForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+    document.getElementById('betaForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Show loading state
+        const submitBtn = this.querySelector('.cta-button');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Submitting...';
+        submitBtn.disabled = true;
+        
+        // Get form values
+        const formData = {
+            email: document.getElementById('email').value,
+            name: document.getElementById('name').value,
+            organization: document.getElementById('organization').value,
+            role: document.getElementById('role').value,
+            use_case: document.getElementById('use_case').value,
+            source: document.getElementById('source').value
+        };
+        
+        // Log what we're about to submit
+        console.log('📤 Submitting form data:', formData);
+        
+        // Build the Google Forms URL with parameters
+        const formId = '1FAIpQLScfsgNLlKAqIGUAXoVmt0pS9Exm-bi5yXfNBXbTLSn76R5gzQ';
+        const baseUrl = `https://docs.google.com/forms/d/e/${formId}/formResponse`;
+        
+        // Create URLSearchParams with your entry IDs
+        const params = new URLSearchParams();
+        params.append('entry.674297029', formData.email);
+        params.append('entry.438906644', formData.name);
+        params.append('entry.1921768215', formData.organization);
+        params.append('entry.1195763963', formData.role);
+        params.append('entry.2034369857', formData.use_case);
+        params.append('entry.789666580', formData.source);
+        
+        console.log('🔗 Full submission URL:', baseUrl);
+        console.log('📋 URL Parameters:', params.toString());
+        
+        try {
+            // Method 1: Try fetch with no-cors
+            console.log('🚀 Attempting fetch submission...');
+            await fetch(baseUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: params.toString(),
+                mode: 'no-cors'
+            });
             
-            // Show loading state
-            const submitBtn = this.querySelector('.cta-button');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Submitting...';
-            submitBtn.disabled = true;
+            console.log('✅ Fetch completed (no-cors mode - can\'t verify success)');
             
-            // Collect form data for Google Forms
-            const formData = new FormData();
+            // Method 2: Also try hidden iframe method (more reliable)
+            console.log('🔄 Also submitting via iframe for redundancy...');
+            submitViaIframe(baseUrl, params);
             
-            // Map your form fields to Google Form entry IDs
-            formData.append('entry.674297029', document.getElementById('email').value);
-            formData.append('entry.438906644', document.getElementById('name').value);
-            formData.append('entry.1921768215', document.getElementById('organization').value);
-            formData.append('entry.1195763963', document.getElementById('role').value);
-            formData.append('entry.2034369857', document.getElementById('use_case').value);
-            formData.append('entry.789666580', document.getElementById('source').value);
-            
-            // Convert FormData to URLSearchParams for proper encoding
-            const searchParams = new URLSearchParams();
-            for (const pair of formData.entries()) {
-                searchParams.append(pair[0], pair[1]);
-            }
-            
-            try {
-                // Submit to Google Forms
-                await fetch('https://docs.google.com/forms/d/e/1FAIpQLScfsgNLlKAqIGUAXoVmt0pS9Exm-bi5yXfNBXbTLSn76R5gzQ/formResponse', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: searchParams.toString(),
-                    mode: 'no-cors' // Required for Google Forms
-                });
-                
-                // Show success message
+            // Show success message after both methods
+            setTimeout(() => {
                 document.getElementById('betaForm').style.display = 'none';
                 document.getElementById('successMessage').classList.add('show');
-                
-                // Log for debugging
-                console.log('Beta signup submitted successfully');
-                
-            } catch (error) {
-                console.error('Submission error:', error);
-                // Still show success since Google Forms submission likely worked
-                document.getElementById('betaForm').style.display = 'none';
-                document.getElementById('successMessage').classList.add('show');
-            } finally {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }
-        });
-    </script>
+                console.log('✅ Success message displayed');
+            }, 1000);
+            
+        } catch (error) {
+            console.error('❌ Submission error:', error);
+            
+            // Still show success since we can't actually detect failure with no-cors
+            document.getElementById('betaForm').style.display = 'none';
+            document.getElementById('successMessage').classList.add('show');
+            console.log('⚠️ Showing success message despite error (no-cors limitation)');
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+    
+    // Helper function: Submit via hidden iframe (more reliable for Google Forms)
+    function submitViaIframe(baseUrl, params) {
+        // Create hidden iframe
+        const iframe = document.createElement('iframe');
+        iframe.name = 'hidden_iframe';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+        
+        // Create hidden form
+        const form = document.createElement('form');
+        form.action = baseUrl;
+        form.method = 'POST';
+        form.target = 'hidden_iframe';
+        
+        // Add all parameters as hidden inputs
+        for (const [key, value] of params.entries()) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = value;
+            form.appendChild(input);
+        }
+        
+        // Submit form
+        document.body.appendChild(form);
+        form.submit();
+        
+        console.log('📨 Iframe submission sent');
+        
+        // Clean up after 3 seconds
+        setTimeout(() => {
+            document.body.removeChild(form);
+            document.body.removeChild(iframe);
+            console.log('🧹 Cleaned up iframe and form');
+        }, 3000);
+    }
+</script>
 </body>
 </html>
