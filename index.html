@@ -484,13 +484,13 @@
                     <label for="role">What best describes you? *</label>
                     <select id="role" name="role" required>
                         <option value="">Select your role...</option>
-                        <option value="researcher">Academic Researcher</option>
-                        <option value="mission_planner">Mission Planner</option>
-                        <option value="gis_professional">GIS Professional</option>
-                        <option value="space_engineer">Space Engineer/Developer</option>
-                        <option value="student">Student</option>
-                        <option value="enthusiast">Space Enthusiast</option>
-                        <option value="other">Other</option>
+                        <option value="Academic Researcher">Academic Researcher</option>
+                        <option value="Mission Planner">Mission Planner</option>
+                        <option value="GIS Professional">GIS Professional</option>
+                        <option value="Space Engineer/Developer">Space Engineer/Developer</option>
+                        <option value="Student">Student</option>
+                        <option value="Space Enthusiast">Space Enthusiast</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
 
@@ -503,13 +503,13 @@
                     <label for="source">How did you hear about us?</label>
                     <select id="source" name="source">
                         <option value="">Select...</option>
-                        <option value="reddit">Reddit</option>
-                        <option value="linkedin">LinkedIn</option>
-                        <option value="twitter">Twitter/X</option>
-                        <option value="colleague">Colleague/Friend</option>
-                        <option value="conference">Conference</option>
-                        <option value="search">Search Engine</option>
-                        <option value="other">Other</option>
+                        <option value="Reddit">Reddit</option>
+                        <option value="LinkedIn">LinkedIn</option>
+                        <option value="Twitter/X">Twitter/X</option>
+                        <option value="Colleague/Friend">Colleague/Friend</option>
+                        <option value="Conference">Conference</option>
+                        <option value="Search Engine">Search Engine</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
 
@@ -517,7 +517,7 @@
             </form>
 
             <div class="success-message" id="successMessage">
-                <strong>âœ“ Success!</strong> Thank you for signing up. We'll send your API key and onboarding instructions to your email within 24 hours.
+                <strong>✓ Success!</strong> Thank you for signing up. We'll send your API key and onboarding instructions to your email within 24 hours.
             </div>
         </div>
     </section>
@@ -529,13 +529,13 @@
             
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">ðŸ“Š</div>
+                    <div class="feature-icon">📊</div>
                     <h3>Comprehensive Data</h3>
                     <p>1.18M sites with 60+ features each. Terrain metrics from NASA LOLA (5m resolution) and illumination data from LROC.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">ðŸ§ </div>
+                    <div class="feature-icon">🧠</div>
                     <h3>Smart Recommendations</h3>
                     <p>AI-powered site scoring with plain English reasoning. Know exactly why each site is recommended for your mission.</p>
                 </div>
@@ -547,7 +547,7 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">🗺️</div>
+                    <div class="feature-icon">🗺️</div>
                     <h3>Export Anywhere</h3>
                     <p>GeoJSON for QGIS/ArcGIS, KML for Google Earth, CSV for Excel. Integrate with your existing workflows.</p>
                 </div>
@@ -559,7 +559,7 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">ðŸ”¬</div>
+                    <div class="feature-icon">🔬</div>
                     <h3>Research-Grade</h3>
                     <p>99.98% data completeness with professional curation. Built on authoritative NASA datasets.</p>
                 </div>
@@ -577,12 +577,12 @@
             </div>
 
             <div class="use-case">
-                <h3>ðŸŽ“ Academic Research</h3>
+                <h3>🎓 Academic Research</h3>
                 <p>Access processed NASA datasets for lunar geology, terrain analysis, or illumination studies. Free academic tier available.</p>
             </div>
 
             <div class="use-case">
-                <h3>🗺️ GIS Analysis</h3>
+                <h3>🗺️ GIS Analysis</h3>
                 <p>Export pre-analyzed data directly to QGIS or ArcGIS. Skip the manual raster processing and focus on insights.</p>
             </div>
 
@@ -636,118 +636,80 @@ print(top_site["reasoning"])<br><br>
     </footer>
 
     <script>
-    document.getElementById('betaForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        // Show loading state
-        const submitBtn = this.querySelector('.cta-button');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Submitting...';
-        submitBtn.disabled = true;
-        
-        // Get form values
-        const formData = {
-            email: document.getElementById('email').value,
-            name: document.getElementById('name').value,
-            organization: document.getElementById('organization').value,
-            role: document.getElementById('role').value,
-            use_case: document.getElementById('use_case').value,
-            source: document.getElementById('source').value
-        };
-        
-        // Log what we're about to submit
-        console.log('📤 Submitting form data:', formData);
-        
-        // Build the Google Forms URL with parameters
-        const formId = '1FAIpQLScfsgNLlKAqIGUAXoVmt0pS9Exm-bi5yXfNBXbTLSn76R5gzQ';
-        const baseUrl = `https://docs.google.com/forms/d/e/${formId}/formResponse`;
-        
-        // Create URLSearchParams with your entry IDs
-        const params = new URLSearchParams();
-        params.append('entry.674297029', formData.email);
-        params.append('entry.438906644', formData.name);
-        params.append('entry.1921768215', formData.organization);
-        params.append('entry.1195763963', formData.role);
-        params.append('entry.2034369857', formData.use_case);
-        params.append('entry.789666580', formData.source);
-        
-        console.log('🔗 Full submission URL:', baseUrl);
-        console.log('📋 URL Parameters:', params.toString());
-        
-        try {
-            // Method 1: Try fetch with no-cors
-            console.log('🚀 Attempting fetch submission...');
-            await fetch(baseUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: params.toString(),
-                mode: 'no-cors'
-            });
+        document.getElementById('betaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            console.log('✅ Fetch completed (no-cors mode - can\'t verify success)');
+            // Show loading state
+            const submitBtn = this.querySelector('.cta-button');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
             
-            // Method 2: Also try hidden iframe method (more reliable)
-            console.log('🔄 Also submitting via iframe for redundancy...');
-            submitViaIframe(baseUrl, params);
+            // Collect form data
+            const formData = {
+                'entry.674297029': document.getElementById('email').value,
+                'entry.438906644': document.getElementById('name').value,
+                'entry.1921768215': document.getElementById('organization').value,
+                'entry.1195763963': document.getElementById('role').value,
+                'entry.2034369857': document.getElementById('use_case').value,
+                'entry.789666580': document.getElementById('source').value
+            };
             
-            // Show success message after both methods
-            setTimeout(() => {
+            console.log('📤 Submitting to Google Forms via hidden iframe...');
+            console.log('Form data:', formData);
+            
+            // Create hidden iframe
+            const iframe = document.createElement('iframe');
+            iframe.name = 'hidden_iframe';
+            iframe.id = 'hidden_iframe';
+            iframe.style.display = 'none';
+            
+            // Handle iframe load event
+            iframe.onload = function() {
+                console.log('✅ Form submitted successfully!');
+                // Show success message
                 document.getElementById('betaForm').style.display = 'none';
                 document.getElementById('successMessage').classList.add('show');
-                console.log('✅ Success message displayed');
-            }, 1000);
+                
+                // Reset button state
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                // Clean up iframe after a delay
+                setTimeout(() => {
+                    if (document.body.contains(hiddenForm)) {
+                        document.body.removeChild(hiddenForm);
+                    }
+                    if (document.body.contains(iframe)) {
+                        document.body.removeChild(iframe);
+                    }
+                    console.log('🧹 Cleaned up hidden elements');
+                }, 2000);
+            };
             
-        } catch (error) {
-            console.error('❌ Submission error:', error);
+            document.body.appendChild(iframe);
             
-            // Still show success since we can't actually detect failure with no-cors
-            document.getElementById('betaForm').style.display = 'none';
-            document.getElementById('successMessage').classList.add('show');
-            console.log('⚠️ Showing success message despite error (no-cors limitation)');
-        } finally {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }
-    });
-    
-    // Helper function: Submit via hidden iframe (more reliable for Google Forms)
-    function submitViaIframe(baseUrl, params) {
-        // Create hidden iframe
-        const iframe = document.createElement('iframe');
-        iframe.name = 'hidden_iframe';
-        iframe.style.display = 'none';
-        document.body.appendChild(iframe);
-        
-        // Create hidden form
-        const form = document.createElement('form');
-        form.action = baseUrl;
-        form.method = 'POST';
-        form.target = 'hidden_iframe';
-        
-        // Add all parameters as hidden inputs
-        for (const [key, value] of params.entries()) {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = key;
-            input.value = value;
-            form.appendChild(input);
-        }
-        
-        // Submit form
-        document.body.appendChild(form);
-        form.submit();
-        
-        console.log('📨 Iframe submission sent');
-        
-        // Clean up after 3 seconds
-        setTimeout(() => {
-            document.body.removeChild(form);
-            document.body.removeChild(iframe);
-            console.log('🧹 Cleaned up iframe and form');
-        }, 3000);
-    }
-</script>
+            // Create hidden form
+            const hiddenForm = document.createElement('form');
+            hiddenForm.action = 'https://docs.google.com/forms/d/e/1FAIpQLScfsgNLlKAqIGUAXoVmt0pS9Exm-bi5yXfNBXbTLSn76R5gzQ/formResponse';
+            hiddenForm.method = 'POST';
+            hiddenForm.target = 'hidden_iframe';
+            
+            // Add all form fields as hidden inputs
+            Object.entries(formData).forEach(([name, value]) => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = name;
+                input.value = value;
+                hiddenForm.appendChild(input);
+            });
+            
+            document.body.appendChild(hiddenForm);
+            
+            // Submit the form
+            hiddenForm.submit();
+            console.log('📨 Form submitted to iframe');
+        });
+    </script>
 </body>
 </html>
