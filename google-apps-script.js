@@ -241,7 +241,7 @@ print(response.json())
       
       <h2>📊 Beta Program Details</h2>
       <p><strong>Your Use Case:</strong> ${userData.useCase}</p>
-      <p><strong>Rate Limits:</strong> 1,000 requests/day (plenty for testing and development)</p>
+      <p><strong>Rate Limits:</strong> 100 requests/day (plenty for testing and development)</p>
       <p><strong>Support:</strong> Reply to this email or contact <a href="mailto:info@irisdatalabs.com">info@irisdatalabs.com</a></p>
       
       <h2>🤝 Help Us Improve</h2>
