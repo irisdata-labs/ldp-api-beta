@@ -573,9 +573,8 @@ console.log(`Requests remaining: ${data.user.requests_remaining}`);</div>
             
             <div class="success-box">
                 <strong>Where to Find Your Key:</strong><br>
-                Check the welcome email: "Welcome to Lunar Landing Site API - Your Access Details"<br>
+                Check the welcome email: "Welcome to Lunar Landing API - Your Access Details"<br>
                 Key format: <code>ldp_live_</code> followed by 32 alphanumeric characters<br>
-                Example: <code>ldp_live_6dd4063bfc6c42fb8edc942b7f4d7c1d</code>
             </div>
 
             <div class="warning-box">
@@ -1272,7 +1271,7 @@ export default LunarSiteExplorer;</div>
             
             <div class="info-box">
                 <strong>Step 1: Start Broad</strong><br>
-                • Large radius (100-200km)<br>
+                • Large radius (100km)<br>
                 • Relaxed filters<br>
                 • Goal: Overview of available sites<br><br>
                 
@@ -1358,7 +1357,6 @@ export default LunarSiteExplorer;</div>
             <div class="success-box">
                 <strong>For Fast Queries (&lt;50ms):</strong>
                 <ul>
-                    <li>Use smaller search radii (10-50km)</li>
                     <li>Apply stricter filters to reduce result processing</li>
                     <li>Use batch endpoint for multiple site lookups</li>
                     <li>Cache results when querying repeatedly</li>
