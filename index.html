@@ -367,11 +367,13 @@
             margin-top: 2rem;
         }
 
-        .code-block code {
+        .code-block pre {
             font-family: 'Courier New', monospace;
             font-size: 0.95rem;
             line-height: 1.6;
             color: #e0e0e0;
+            margin: 0;
+            white-space: pre;
         }
 
         .code-comment {
@@ -434,6 +436,11 @@
             font-family: 'Courier New', monospace;
             font-size: 0.9rem;
             margin: 1rem 0;
+        }
+
+        .guide-code pre {
+            margin: 0;
+            white-space: pre;
         }
 
         .guide-table {
@@ -755,29 +762,25 @@
             <h2 class="section-title">Simple, Powerful API</h2>
             <p class="section-subtitle">Get started in 30 seconds with any programming language</p>
             
-            <div class="code-block">
-                <code>
-<span class="code-comment"># Find the 5 safest landing sites near lunar south pole</span><br>
-import requests<br><br>
+            <div class="code-block"><pre><span class="code-comment"># Find the 5 safest landing sites near lunar south pole</span>
+import requests
 
-response = requests.get(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;"https://lunarlandingsiteapi.up.railway.app/api/v1/recommendations",<br>
-&nbsp;&nbsp;&nbsp;&nbsp;headers={"X-API-Key": "your_key_here"},<br>
-&nbsp;&nbsp;&nbsp;&nbsp;params={<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"lat": -89.5,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"lon": 45,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"mission_type": "artemis",<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"top_n": 5<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-)<br><br>
+response = requests.get(
+    "https://lunarlandingsiteapi.up.railway.app/api/v1/recommendations",
+    headers={"X-API-Key": "your_key_here"},
+    params={
+        "lat": -89.5,
+        "lon": 45,
+        "mission_type": "artemis",
+        "top_n": 5
+    }
+)
 
-<span class="code-comment"># Get plain English reasoning for top site</span><br>
-top_site = response.json()["recommendations"][0]<br>
-print(top_site["reasoning"])<br><br>
+<span class="code-comment"># Get plain English reasoning for top site</span>
+top_site = response.json()["recommendations"][0]
+print(top_site["reasoning"])
 
-<span class="code-comment"># Output: "Exceptional safety (hazard 0.92) with excellent visibility (95.2%)..."</span>
-                </code>
-            </div>
+<span class="code-comment"># Output: "Exceptional safety (hazard 0.92) with excellent visibility (95.2%)..."</span></pre></div>
         </div>
     </section>
 
@@ -804,8 +807,8 @@ print(top_site["reasoning"])<br><br>
                 <div class="guide-content">
                     <p>Most endpoints require an API key in the <code>X-API-Key</code> header:</p>
                     
-                    <div class="guide-code">curl -H "X-API-Key: ldp_live_YOUR_KEY_HERE" \
-  "https://lunarlandingsiteapi.up.railway.app/api/v1/recommendations?lat=-89.5&lon=45"</div>
+                    <div class="guide-code"><pre>curl -H "X-API-Key: ldp_live_YOUR_KEY_HERE" \
+  "https://lunarlandingsiteapi.up.railway.app/api/v1/recommendations?lat=-89.5&lon=45"</pre></div>
 
                     <h4>Public Endpoints (No Auth Required)</h4>
                     <ul class="guide-list">
@@ -851,14 +854,14 @@ print(top_site["reasoning"])<br><br>
 
                     <div class="guide-highlight">
                         <strong>Monitor Your Usage:</strong> Every API response includes your usage stats:
-                        <div class="guide-code">{
+                        <div class="guide-code"><pre>{
   "user": {
     "email": "you@example.com",
     "tier": "beta",
     "requests_today": 45,
     "requests_remaining": 55
   }
-}</div>
+}</pre></div>
                     </div>
                 </div>
             </div>
@@ -868,7 +871,7 @@ print(top_site["reasoning"])<br><br>
                 <h3>💻 Code Examples</h3>
                 <div class="guide-content">
                     <h4>Python</h4>
-                    <div class="guide-code">import requests
+                    <div class="guide-code"><pre>import requests
 
 API_KEY = "ldp_live_YOUR_KEY_HERE"
 headers = {"X-API-Key": API_KEY}
@@ -880,10 +883,10 @@ response = requests.get(
 )
 
 data = response.json()
-print(f"Requests remaining: {data['user']['requests_remaining']}")</div>
+print(f"Requests remaining: {data['user']['requests_remaining']}")</pre></div>
 
                     <h4>JavaScript</h4>
-                    <div class="guide-code">const API_KEY = "ldp_live_YOUR_KEY_HERE";
+                    <div class="guide-code"><pre>const API_KEY = "ldp_live_YOUR_KEY_HERE";
 
 const response = await fetch(
   'https://lunarlandingsiteapi.up.railway.app/api/v1/recommendations?lat=-89.5&lon=45',
@@ -891,11 +894,11 @@ const response = await fetch(
 );
 
 const data = await response.json();
-console.log(`Requests remaining: ${data.user.requests_remaining}`);</div>
+console.log(`Requests remaining: ${data.user.requests_remaining}`);</pre></div>
 
                     <h4>curl</h4>
-                    <div class="guide-code">curl -H "X-API-Key: ldp_live_YOUR_KEY_HERE" \
-  "https://lunarlandingsiteapi.up.railway.app/api/v1/recommendations?lat=-89.5&lon=45&mission_type=artemis&top_n=10"</div>
+                    <div class="guide-code"><pre>curl -H "X-API-Key: ldp_live_YOUR_KEY_HERE" \
+  "https://lunarlandingsiteapi.up.railway.app/api/v1/recommendations?lat=-89.5&lon=45&mission_type=artemis&top_n=10"</pre></div>
                 </div>
             </div>
 
@@ -936,7 +939,7 @@ console.log(`Requests remaining: ${data.user.requests_remaining}`);</div>
                     </table>
 
                     <h4>Best Practice: Handle Errors Gracefully</h4>
-                    <div class="guide-code">try:
+                    <div class="guide-code"><pre>try:
     response = requests.get(url, headers=headers, params=params)
     response.raise_for_status()
     data = response.json()
@@ -946,7 +949,7 @@ except requests.exceptions.HTTPError as e:
     elif e.response.status_code == 403:
         print("Invalid API key!")
     elif e.response.status_code == 429:
-        print("Rate limit exceeded")</div>
+        print("Rate limit exceeded")</pre></div>
                 </div>
             </div>
 
