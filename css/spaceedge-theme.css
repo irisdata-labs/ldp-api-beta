@@ -1,0 +1,147 @@
+/* SpaceEdge Purple/Cyan Theme Override */
+:root {
+    --primary-purple: #6C63FF;
+    --primary-cyan: #00D9FF;
+    --deep-space: #0A1128;
+    --text-light: #E8EAF6;
+    --text-muted: #B0B8C4;
+}
+
+body {
+    background: #0A1128 !important;
+    color: #E8EAF6 !important;
+}
+
+/* Header/Navigation */
+header,
+nav,
+.navbar {
+    background: #0A1128 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Primary buttons and accents */
+.btn-primary,
+button[type="submit"],
+.primary-button {
+    background: #6C63FF !important;
+    border-color: #6C63FF !important;
+    color: #FFFFFF !important;
+}
+
+.btn-primary:hover,
+button[type="submit"]:hover {
+    background: #5B52E8 !important;
+    box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4) !important;
+}
+
+/* Secondary buttons and links */
+.btn-secondary,
+a.secondary-link {
+    color: #00D9FF !important;
+    border-color: #00D9FF !important;
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 217, 255, 0.1) !important;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #FFFFFF !important;
+}
+
+/* Links */
+a {
+    color: #00D9FF !important;
+}
+
+a:hover {
+    color: #6C63FF !important;
+}
+
+/* Cards and panels */
+.card,
+.panel,
+.box {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(108, 99, 255, 0.3) !important;
+    border-radius: 12px !important;
+}
+
+.card:hover,
+.panel:hover {
+    border-color: #6C63FF !important;
+}
+
+/* Map controls and overlays */
+.leaflet-control,
+.map-control {
+    background: rgba(10, 17, 40, 0.95) !important;
+    border: 1px solid rgba(108, 99, 255, 0.3) !important;
+    color: #E8EAF6 !important;
+}
+
+/* Input fields */
+input,
+select,
+textarea {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(108, 99, 255, 0.3) !important;
+    color: #E8EAF6 !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #6C63FF !important;
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2) !important;
+}
+
+/* Sidebar */
+.sidebar,
+aside {
+    background: rgba(10, 17, 40, 0.98) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Tables */
+table {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+thead {
+    background: rgba(108, 99, 255, 0.1) !important;
+}
+
+th {
+    color: #00D9FF !important;
+}
+
+td {
+    color: #B0B8C4 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Tooltips and popovers */
+.tooltip,
+.popover {
+    background: #0A1128 !important;
+    border: 1px solid #6C63FF !important;
+    color: #E8EAF6 !important;
+}
+
+/* Status badges */
+.badge,
+.tag {
+    background: rgba(0, 217, 255, 0.2) !important;
+    color: #00D9FF !important;
+    border: 1px solid #00D9FF !important;
+}
+
+/* Footer */
+footer {
+    background: #0A1128 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #8B95A5 !important;
+}
